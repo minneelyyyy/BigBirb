@@ -1,0 +1,9 @@
+config.json
+
+.vscode/
+
+**.o
+
+*.log
+
+BigBirb
