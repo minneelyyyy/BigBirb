@@ -3,7 +3,6 @@
 #include <concord/discord.h>
 
 #include "commands/commands.h"
-#include "secret.h"
 
 void on_ready(struct discord *client, const struct discord_ready *event) {
     struct discord_create_guild_application_command ping = {
