@@ -1,21 +1,22 @@
 CC=gcc
-CFLAGS=-g
+CFLAGS=-g -I./src/include -DJSMN_STATIC
 LIBS=-ldiscord -lcurl -lpthread
 
-OBJS=src/main.o \
-	src/commands/ping.o
+SOURCES=$(shell find src/ -type f -name "*.c")
+OBJECTS=$(patsubst src/%.c,build/%.o,$(SOURCES))
 
 .PHONY: all clean
 
 all: BigBirb
 
-BigBirb: $(OBJS)
+BigBirb: $(OBJECTS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
-$(OBJS): src/%.o : src/%.c
+$(OBJECTS): build/%.o : src/%.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJECTS)
 	rm -f BigBirb
 	rm -f *.log
