@@ -4,7 +4,7 @@
 
 ## How to compile
 
-1. Install [Concord](https://github.com/Cogmasters/concord)
+1. Install [Concord](https://github.com/Cogmasters/concord#build-instructions)
 2. `git clone https://github.com/minneelyyyy/BigBirb.git`
 3. `cd BigBirb`
 4. `cp config.json.template config.json`
