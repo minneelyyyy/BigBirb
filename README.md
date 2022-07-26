@@ -15,4 +15,6 @@
 
 ```
 /ping - get the bots heartbeat in milliseconds
+/neko - show a picture of a cute neko
+/fox  - show a picture of a cute fox
 ```
