@@ -32,13 +32,13 @@ char *nekos_life_get(const char *endpoint) {
 
     if (code != CURLE_OK) {
         log_warn("failed to connect (%s): %s", url, curl_easy_strerror(code));
+
+        if (data != NULL) {
+            free(data);
+        }
     }
 
     curl_easy_cleanup(curl);
-
-    if (data != NULL) {
-        free(data);
-    }
 
     return code == 0 ? data : NULL;
 }
