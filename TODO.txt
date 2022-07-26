@@ -1,0 +1,5 @@
+These are the things that I plan to do:
+
+ - create a function that gets a url from nekos.life without sending
+ - add more commands
+ - add an on join function that initializes commands for the newly joined server
