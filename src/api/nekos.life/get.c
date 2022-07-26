@@ -18,8 +18,9 @@ size_t write_data(void *ptr, size_t size, size_t nmemb, char **s) {
 
 char *nekos_life_get(const char *endpoint) {
     CURL *curl = curl_easy_init();
+    CURLcode code;
     char url[1028];
-    char *data;
+    char *data = NULL;
 
     sprintf(url, "https://nekos.life/api/v2/img/%s", endpoint);
 
@@ -27,8 +28,17 @@ char *nekos_life_get(const char *endpoint) {
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &data);
 
-    curl_easy_perform(curl);
+    code = curl_easy_perform(curl);
+
+    if (code != CURLE_OK) {
+        log_warn("failed to connect (%s): %s", url, curl_easy_strerror(code));
+    }
 
     curl_easy_cleanup(curl);
-    return data;
+
+    if (data != NULL) {
+        free(data);
+    }
+
+    return code == 0 ? data : NULL;
 }
