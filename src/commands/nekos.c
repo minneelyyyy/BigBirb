@@ -6,8 +6,8 @@
 #include <nekos-life.h>
 #include <concord/discord.h>
 
-void neko(struct discord *client, const struct discord_interaction *event) {
-    char *data = nekos_life_get("neko");
+void get_neko(struct discord *client, const struct discord_interaction *event, const char *endpoint) {
+    char *data = nekos_life_get(endpoint);
     char *url = data == NULL ? NULL : json_get_string_field("url", data, strlen(data));
 
     struct discord_interaction_response params = {

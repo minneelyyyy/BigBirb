@@ -7,24 +7,27 @@
 #include <commands.h>
 
 void on_ready(struct discord *client, const struct discord_ready *event) {
-    struct discord_create_guild_application_command ping = {
-        .name = "ping",
-        .description = "Show the bot's latency"
-    };
-
-    struct discord_create_guild_application_command neko = {
-        .name = "neko",
-        .description = "Show an image of a neko"
+    struct discord_create_guild_application_command cmds[] = {
+        {
+            .name = "ping",
+            .description = "Show the bot's latency"
+        },
+        {
+            .name = "neko",
+            .description = "Show an image of a neko"
+        },
+        {
+            .name = "fox",
+            .description = "Show an image of a fox girl"
+        }
     };
 
     for (int i = 0; i < event->guilds->size; i++) {
-        discord_create_guild_application_command(
-            client, event->application->id, event->guilds->array[i].id, &ping, NULL
-        );
-
-        discord_create_guild_application_command(
-            client, event->application->id, event->guilds->array[i].id, &neko, NULL
-        );
+        for (int j = 0; j < sizeof(cmds) / sizeof(cmds[0]); j++) {
+            discord_create_guild_application_command(
+                client, event->application->id, event->guilds->array[i].id, &cmds[j], NULL
+            );
+        }
     }
 
     log_info("Logged in as %s#%s", event->user->username, event->user->discriminator);
@@ -39,7 +42,9 @@ void on_interaction(struct discord *client, const struct discord_interaction *ev
     if (strcmp(command_name, "ping") == 0) {
         ping(client, event);
     } else if (strcmp(command_name, "neko") == 0) {
-        neko(client, event);
+        get_neko(client, event, "neko");
+    } else if (strcmp(command_name, "fox") == 0) {
+        get_neko(client, event, "fox_girl");
     }
 }
 
