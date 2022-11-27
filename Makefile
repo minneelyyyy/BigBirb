@@ -1,4 +1,3 @@
-CC=gcc
 CFLAGS=-g -I./src/include -DJSMN_STATIC
 LIBS=-ldiscord -lcurl -lpthread
 
