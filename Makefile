@@ -11,7 +11,7 @@ OBJECTS=$(patsubst src/%.c,build/%.o,$(SOURCES))
 all: BigBirb
 
 BigBirb: $(OBJECTS)
-	$(CC) -o $@ $^ $(LIBS)
+	$(LD) -o $@ $^ $(LIBS)
 
 $(OBJECTS): build/%.o : src/%.c
 	@mkdir -p $(dir $@)
